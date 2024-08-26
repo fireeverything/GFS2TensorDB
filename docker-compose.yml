@@ -1,0 +1,24 @@
+version: '3.8'
+
+x-build:
+  &default-build
+  context: .
+  dockerfile: Dockerfile
+#  image: registry.cn-hangzhou.aliyuncs.com/mapuni/water_traceback
+
+services:
+  GFS_Download_Now:
+    build: *default-build
+    command: /bin/bash -c "python -u ./com/mapuni/download.py"
+    image: gfs_download_now:latest
+    container_name: GFS_Download_Now
+    volumes:
+      - /home/ann/opt/GFS2Tensor/gfsdl/:/GFS2TensorDB/gfsdl/
+    restart: unless-stopped
+    network_mode: host
+
+
+
+
+
+
